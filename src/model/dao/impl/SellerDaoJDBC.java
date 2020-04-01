@@ -54,14 +54,9 @@ public class SellerDaoJDBC implements SellerDao {
 		
 		/*** extraindo os dados armazenados de acordo com o paradigma relacional 
 		(tabela) e armazenando-os de acordo com o paradigma OO (objetos) ****/
-		Department dep = new Department(rs.getInt("DepartmentId"), 
-						rs.getString("DepName"));
-		Seller seller = new Seller(rs.getInt("Id"), 
-					 rs.getString("Name"), 
-					 rs.getString("Email"), 
-					 rs.getDate("BirthDate"), 
-					 rs.getDouble("BaseSalary"),
-					 dep);
+		Department dep = instantiateDepartment(rs);
+		Seller seller = instantiateSeller(rs, dep);
+		
 		return seller;
 	    }
 	    
@@ -78,6 +73,25 @@ public class SellerDaoJDBC implements SellerDao {
     @Override
     public List<Seller> findAll() {
 	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /* Métodos auxiliares para evitar códigos verbosos dentro do findById */
+    private Department instantiateDepartment(ResultSet rs) throws SQLException {
+	Department dep = new Department();
+	dep.setId(rs.getInt("DepartmentId"));
+	dep.setName(rs.getString("DepName"));
+	return dep;
+    }
+    
+    private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
+	Seller seller = new Seller();
+	seller.setId(rs.getInt("Id"));
+	seller.setName(rs.getString("Name")); 
+	seller.setEmail(rs.getString("Email")); 
+	seller.setBirthDate(rs.getDate("BirthDate")); 
+	seller.setBaseSalary(rs.getDouble("BaseSalary"));
+	seller.setDepartament(dep);
+	return seller;
     }
 
 }
