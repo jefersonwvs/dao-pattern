@@ -15,8 +15,10 @@ public class Program {
 	
 	SellerDao sellerDao = DaoFactory.createSellerDao();	// injeção de dependência: a classe principal não conhece a implementação utilizada, isto é, utilizando-se da DaoFactory para criar um SellerDao, em vez do construtor SellerDao()
 	
-	System.out.println(obj);
-	System.out.println(obj2);
+	Seller seller = sellerDao.findById(3);
+	
+	System.out.println(seller);
+	//System.out.println(obj2);
 	
     }
     
