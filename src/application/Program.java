@@ -20,7 +20,12 @@ public class Program {
 	Department department = new Department(2, null);    // para a busca por id, não me interessa o nome;
 	List<Seller> list = sellerDao.findByDepartment(department);
 	for (Seller obj : list)
-	    System.out.println(obj  );
+	    System.out.println(obj);
+	
+	System.out.println("\n===== TEST 3: seller - findAll =====");
+	list = sellerDao.findAll();
+	for (Seller obj : list)
+	    System.out.println(obj);
 	
     }
     
