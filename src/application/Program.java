@@ -29,7 +29,7 @@ public class Program {
 	    System.out.println(obj);
 	
 	System.out.println("\n===== TEST 4: seller - insert =====");
-	seller = new Seller(null, "Greg", "Greg@gmail.com", new Date(), 4001.00, department);
+	seller = new Seller(null, "Robin Hood", "arrow@gmail.com", new Date(), 2505.00, department);
 	sellerDao.insert(seller);
 	System.out.println("Inserted! New id = " + seller.getId());
 	
@@ -39,6 +39,10 @@ public class Program {
 	seller.setEmail("batman@wayneenterprises.com");
 	sellerDao.update(seller);
 	System.out.println("Update completed!");
+	
+	System.out.println("\n===== TEST 6: seller - delete =====");
+	sellerDao.deleteById(10);
+	System.out.println("Delete completed!");
     }
     
 }
