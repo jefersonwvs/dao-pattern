@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import model.dao.SellerDao;
 import model.entities.Department;
@@ -18,7 +19,6 @@ public class SellerDaoJDBC implements SellerDao {
     public SellerDaoJDBC(Connection conn) {
 	this.conn = conn;
     }
-    
     
     @Override
     public void insert(Seller obj) {
@@ -68,6 +68,44 @@ public class SellerDaoJDBC implements SellerDao {
 	    DB.closeStatement(st);
 	    DB.closeResultSet(rs);
 	}
+    }
+
+    @Override
+    public List<Seller> findByDepartment(Department department) {
+	
+	PreparedStatement st = null;
+	ResultSet rs = null;
+	
+	try {
+	    /* Comando SQL para busca por departamento*/
+	    st = conn.prepareStatement("SELECT seller.*,department.Name as DepName " +
+		    "FROM seller INNER JOIN department " +
+		    "ON seller.DepartmentId = department.Id " +
+		    "WHERE DepartmentId = ? " +
+		    "ORDER BY Name");
+	    st.setInt(1, department.getId());
+	    rs = st.executeQuery();
+	    
+	    List<Seller> list = new ArrayList<>();
+	    
+	    while (rs.next()) { // Normalmente haverá mais de um vendedor por departamento
+
+		if (rs.getInt("DepartmentId") == department.getId()) {
+		    department.setName(rs.getString("DepName"));    // na pesquisa não veio o nome
+		    Seller seller = instantiateSeller(rs, department);
+		    list.add(seller);
+		}
+	    }
+	    
+	    return list;
+	    
+	} catch (SQLException ex) {
+	    throw new DbException(ex.getMessage());
+	} finally {
+	    DB.closeStatement(st);
+	    DB.closeResultSet(rs);
+	}
+
     }
 
     @Override
