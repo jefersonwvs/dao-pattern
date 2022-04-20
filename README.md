@@ -1,7 +1,8 @@
-# Projeto básico no padrão de estruturação DAO - Data Access Object
+# DAO (Data Access Object) Pattern
 
-Resultado do acompanhamento das aulas de Java, o projeto é o produto
-do aprendizado das manipulações fundamentais (conexão e desconexão)
-do sistema e o BD.
-Além disso, opera sobre as entidades Vendedor e Departamento. Entre as operações 
-estão: inserção, remocão, atualização, exclusão, e listagem.
+This repository is a simple project on DAO, which is a pattern used to separate
+business layer from persistence layer in an application.
+
+My implementation of the DAO pattern is coded in Vanilla Java, which is a CRUD module to manipulate two entities: `Seller` and `Department`.
+
+_The implementation is based on a [Java course](https://www.udemy.com/course/java-curso-completo/) available at Udemy, by [Nelio Alves](https://github.com/acenelio)._
